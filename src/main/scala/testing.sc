@@ -1,12 +1,10 @@
-import java.awt.Color
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
+import Algorithms.kMeans
+
 
 import Utilities.Image
-
-import scala.annotation.tailrec
-import scala.util.Random.nextInt
 
 val fileName = "/home/eric/Pictures/gus_01.jpg"
 
