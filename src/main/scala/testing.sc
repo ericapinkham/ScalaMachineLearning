@@ -5,11 +5,11 @@ import Algorithms.kMeans
 import Utilities.Image
 
 // Open the file and flatten
-val fileName = "/home/eric/Pictures/gus_01.jpg"
+val fileName = "MachineLearning/src/resources/gus_01.jpg"
 val flattenedRgb = for (a <- Image.fileToRgb(fileName); b <- a) yield b
 
-// Setup the kmeans class
-val mykMeans = new kMeans(7)
+// Setup the kMeans class
+val mykMeans = new kMeans(12)
 val (assignments, centers) = mykMeans.cluster(flattenedRgb)
 
 // Apply the clustering to the data
@@ -28,4 +28,4 @@ for (((i,j),k) <- indices.zipWithIndex) {
   newImage.setRGB(j, i, rgbToColor(mappedData(k)))
 }
 
-ImageIO.write(newImage, "jpg", new File("/home/eric/Pictures/test.jpg"))
+ImageIO.write(newImage, "jpg", new File("./test.jpg"))
