@@ -5,13 +5,19 @@ import scala.util.Random.nextInt
 
 class kMeans(numClusters: Int) {
 
+  // The main function to call
   def cluster(data: Vector[List[Double]]): (Vector[Int], Vector[List[Double]]) = {
 
+    // Some utility functions
     def listAdd(xs: List[Double], ys: List[Double]): List[Double] = (xs zip ys) map {case (x,y) => x + y}
     def listSub(xs: List[Double], ys: List[Double]): List[Double] = listAdd(xs, ys.map(y => -y))
 
     def l2Dist(xs: List[Double], ys: List[Double]): Double = {
       Math.sqrt(listSub(xs,ys).map(Math.pow(_, 2)).sum)
+    }
+
+    def distanceMoved(c1: Vector[List[Double]], c2: Vector[List[Double]]): Double = {
+      (c1 zip c2).map(x => l2Dist(x._1,x._2)).sum
     }
 
     def assign(centers: Vector[List[Double]], dataPoint: List[Double]): Int =
@@ -26,10 +32,6 @@ class kMeans(numClusters: Int) {
 
     @tailrec
     def iterate(centers: Vector[List[Double]]): (Vector[Int], Vector[List[Double]]) = {
-      // define the stopping condition
-      def distanceMoved(c1: Vector[List[Double]], c2: Vector[List[Double]]): Double = {
-        (c1 zip c2).map(x => l2Dist(x._1,x._2)).sum
-      }
       // Get assignment
       val assignments = data map(assign(centers, _))
 
@@ -43,9 +45,11 @@ class kMeans(numClusters: Int) {
       else iterate(newCenters)
     }
 
+    // Randomly assign initial clusters
     val initialClusters =
       for (i <- (0 until numClusters).toVector) yield data(nextInt(data.length - 1))
 
+    // Execute the main iteration
     iterate(initialClusters)
   }
 }
