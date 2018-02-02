@@ -19,4 +19,6 @@ object Image {
       for (j <- (0 until w).toVector) yield
         rgbValues(new Color(image.getRGB(j, i)))
   }
+
+  def rgbToColor(rgb: List[Double]): Int = new Color(rgb.head.toInt, rgb(1).toInt, rgb(2).toInt).getRGB
 }
