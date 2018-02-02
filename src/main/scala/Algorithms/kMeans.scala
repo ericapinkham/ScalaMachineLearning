@@ -2,6 +2,7 @@ package Algorithms
 
 import scala.annotation.tailrec
 import scala.util.Random.nextInt
+import Utilities.Vector._
 
 class kMeans(numClusters: Int) {
 
@@ -9,13 +10,6 @@ class kMeans(numClusters: Int) {
   def cluster(data: Vector[List[Double]]): (Vector[Int], Vector[List[Double]]) = {
 
     // Some utility functions
-    def listAdd(xs: List[Double], ys: List[Double]): List[Double] = (xs zip ys) map {case (x,y) => x + y}
-    def listSub(xs: List[Double], ys: List[Double]): List[Double] = listAdd(xs, ys.map(y => -y))
-
-    def l2Dist(xs: List[Double], ys: List[Double]): Double = {
-      Math.sqrt(listSub(xs,ys).map(Math.pow(_, 2)).sum)
-    }
-
     def distanceMoved(c1: Vector[List[Double]], c2: Vector[List[Double]]): Double = {
       (c1 zip c2).map(x => l2Dist(x._1,x._2)).sum
     }
