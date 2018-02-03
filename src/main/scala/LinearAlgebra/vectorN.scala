@@ -17,6 +17,8 @@ class vectorN(seq: Double*) extends Traversable[Double] with Iterable[Double] {
 
   def *(alpha: Double): vectorN = new vectorN(this.map(x => alpha * x).toSeq:_*)
 
+  def /(alpha: Double): vectorN = this * (1 / alpha)
+
   def dot(other: vectorN): Double = {
     this zip other map {case (x,y) => x * y} sum
   }
